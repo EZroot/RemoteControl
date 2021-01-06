@@ -40,34 +40,36 @@ namespace RemoteControl.Server
                         data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                         if (data.IndexOf("<EOF>") > 1)
                         {
-                            break;
+                            //need to parse data recieved
+                            //if string equals keyword, run function
+                            ConsoleDisplay.Write("Command recieved: " + data.ToString());
+
+                            if (CommandParser.Parse(data, "mouseclick") || CommandParser.Parse(data, "mc"))
+                            {
+                                RemoteCommand.MouseClick();
+                                ConsoleDisplay.Write("Left clicked mouse!");
+                            }
+                            else if (CommandParser.Parse(data, "movemouse") || CommandParser.Parse(data, "mm"))
+                            {
+                                //ConsoleDisplay.Write("Pos: " + pos[0] +"/"+ pos[1]);
+                                //Vector2 vec = new Vector2(pos[0], pos[1]);
+                                //RemoteCommand.MoveMouse((int)vec.X, (int)vec.Y);
+
+                                int[] derp = CommandParser.ParseNumbers(data.ToString());
+                                RemoteCommand.MoveMouse(derp[0], derp[1]);
+                                //ConsoleDisplay.Write("Moved mouse to X: " + vec.X + ", Y:" + vec.Y);
+                            }
+                            else
+                            {
+                                data = "Server: Command failed! Please use correct syntax. <EOF>"; 
+                            }
+
+                            //echos msg back to client
+                            byte[] msg = Encoding.ASCII.GetBytes(data);
+                            clientHandler.Send(msg);
+                            data = "";
                         }
                     }
-
-                    //need to parse data recieved
-                    //if string equals keyword, run function
-                    ConsoleDisplay.Write("Text recieved: " + data.ToString());
-
-                    if (CommandParser.Parse(data, "mouseclick") || CommandParser.Parse(data, "mc"))
-                    {
-                        RemoteCommand.MouseClick();
-                        ConsoleDisplay.Write("Left clicked mouse!");
-                    }
-
-                    if (CommandParser.Parse(data, "movemouse") || CommandParser.Parse(data, "mm"))
-                    {
-                        //ConsoleDisplay.Write("Pos: " + pos[0] +"/"+ pos[1]);
-                        //Vector2 vec = new Vector2(pos[0], pos[1]);
-                        //RemoteCommand.MoveMouse((int)vec.X, (int)vec.Y);
-
-                        int[] derp = CommandParser.ParseNumbers(data.ToString());
-                        RemoteCommand.MoveMouse(derp[0], derp[1]);
-                        //ConsoleDisplay.Write("Moved mouse to X: " + vec.X + ", Y:" + vec.Y);
-                    }
-
-                    //echos msg back to client
-                    byte[] msg = Encoding.ASCII.GetBytes(data);
-                    clientHandler.Send(msg);
                     clientHandler.Shutdown(SocketShutdown.Both);
                     clientHandler.Close();
                 }
