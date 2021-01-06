@@ -1,0 +1,13 @@
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\bin\Debug\netcoreapp3.1\RemoteClient.exe
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\bin\Debug\netcoreapp3.1\RemoteClient.deps.json
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\bin\Debug\netcoreapp3.1\RemoteClient.runtimeconfig.json
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\bin\Debug\netcoreapp3.1\RemoteClient.runtimeconfig.dev.json
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\bin\Debug\netcoreapp3.1\RemoteClient.dll
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\bin\Debug\netcoreapp3.1\RemoteClient.pdb
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.csprojAssemblyReference.cache
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.AssemblyInfoInputs.cache
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.AssemblyInfo.cs
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.csproj.CoreCompileInputs.cache
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.dll
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.pdb
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteClient\obj\Debug\netcoreapp3.1\RemoteClient.genruntimeconfig.cache
