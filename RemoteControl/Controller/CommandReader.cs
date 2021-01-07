@@ -3,7 +3,9 @@ using RemoteControl.Executables.Windows;
 using RemoteControl.Parser;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
+using System.Threading;
 
 namespace RemoteControl.Controller
 {
@@ -32,6 +34,9 @@ namespace RemoteControl.Controller
             else if (CommandParser.Parse(data, "mousestream") || CommandParser.Parse(data, "ms"))
             {
                 //while true, get clients mouse coords and stream it
+                //Thread newT = new Thread(StreamMouse);
+                
+                //newT.Start();
             }
             else if (CommandParser.Parse(data, "youtube") || CommandParser.Parse(data, "yt"))
             {
@@ -62,7 +67,7 @@ namespace RemoteControl.Controller
                 }
                 catch (Exception ex)
                 {
-                    ConsoleDisplay.Write("Failed: " + ex.Message + "\nTry /yt url");
+                    ConsoleDisplay.Write("Failed: " + ex.Message + "\nTry /b url");
                 }
             }
             else

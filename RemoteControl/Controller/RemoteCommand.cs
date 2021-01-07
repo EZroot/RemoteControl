@@ -5,6 +5,7 @@ using RemoteControl.Display;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Numerics;
 
 namespace RemoteControl.Controller
 {
@@ -18,6 +19,13 @@ namespace RemoteControl.Controller
         public static void MouseClick()
         {
             Win32.MouseClick();
+        }
+
+        public static Vector2 GetMousePosition()
+        {
+            Vector2 mousePos;
+            Win32.GetCursorPos(out mousePos);
+            return mousePos;
         }
     }
 }
