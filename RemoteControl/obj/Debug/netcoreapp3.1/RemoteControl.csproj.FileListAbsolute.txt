@@ -4,7 +4,6 @@ C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\bin\Debug\netcoreapp3.1
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\bin\Debug\netcoreapp3.1\RemoteControl.runtimeconfig.dev.json
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\bin\Debug\netcoreapp3.1\RemoteControl.dll
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\bin\Debug\netcoreapp3.1\RemoteControl.pdb
-C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.csprojAssemblyReference.cache
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.AssemblyInfoInputs.cache
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.AssemblyInfo.cs
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.csproj.CoreCompileInputs.cache

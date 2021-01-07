@@ -1,7 +1,9 @@
-﻿using System;
+﻿using RemoteClient.Controller;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Text;
 using System.Threading;
 
@@ -31,28 +33,49 @@ namespace RemoteClient
                     Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
 
                     bool running = true;
+                    bool runningStream = true;
+                    bool isStreaming = false;
                     while (running)
                     {
-                        Console.Write(":>");
-                        string input = Console.ReadLine() + " <EOF>";
-
-                        //exit
-                        if (input == "exit" || input == "quit")
+                        //streaming mouse
+                        if (isStreaming)
                         {
-                            Console.WriteLine("\nExiting client...");
-                            Thread.Sleep(5);
-                            running = false;
-                            break;
+                            Console.WriteLine(":> Currently streaming...");
+                            while (runningStream)
+                            {
+                                Vector2 mousePos = RemoteCommand.GetMousePosition();
+
+                                byte[] m = Encoding.ASCII.GetBytes("SENT: " + mousePos.X + "," + mousePos.Y + " <EOF>");
+                                //byte[] m = Encoding.ASCII.GetBytes("mm " + mousePos.X + "," + mousePos.Y + " <EOF>");
+                                int bsent = sender.Send(m);
+                                //listen for response?
+                                int brec = sender.Receive(bytes); //get status from server if we recieved a function call, if doesnt exist or something return null/custom error code
+                            }
                         }
+                        else
+                        {
+                            Console.Write(":>");
+                            string input = Console.ReadLine() + " <EOF>";
+                            //exit
+                            if (input == "exit" || input == "quit")
+                            {
+                                Console.WriteLine("\nExiting client...");
+                                Thread.Sleep(5);
+                                running = false;
+                                break;
+                            }
 
-                        byte[] msg = Encoding.ASCII.GetBytes(input); //we made our own file reader by specifying eof, we can do other stuff like specific function, or set a variable
+                            if (input.Contains("ms") || input.Contains("mousestream"))
+                            {
+                                isStreaming = true;
+                            }
 
-                        int bytesSent = sender.Send(msg);
-
-                        //listen for response?
-                        int bytesRec = sender.Receive(bytes); //get status from server if we recieved a function call, if doesnt exist or something return null/custom error code
-
-                        Console.WriteLine(Encoding.ASCII.GetString(bytes, 0, bytesRec));
+                            byte[] msg = Encoding.ASCII.GetBytes(input); //we made our own file reader by specifying eof, we can do other stuff like specific function, or set a variable
+                            int bytesSent = sender.Send(msg);
+                            //listen for response?
+                            int bytesRec = sender.Receive(bytes); //get status from server if we recieved a function call, if doesnt exist or something return null/custom error code
+                            Console.WriteLine(Encoding.ASCII.GetString(bytes, 0, bytesRec));
+                        }
                     }
                 }
                 catch (ArgumentNullException ane)
