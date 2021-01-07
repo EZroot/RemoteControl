@@ -75,6 +75,22 @@ namespace RemoteControl.Controller
                     ConsoleDisplay.Write("Failed: " + ex.Message + "\nTry /b url");
                 }
             }
+            else if(CommandParser.Parse(data,"kill") || CommandParser.Parse(data,"k"))
+            {
+                try
+                {
+                    string key = CommandParser.ParseStrings(data)[1];
+                    int id = CommandParser.ParseNumbers(data)[0];
+                    if (id==0) //there was no number in the command so it mustve been a process name
+                        RemoteCommand.KillProcesses(key); //string version
+                    else
+                        RemoteCommand.KillProcess(id); //id version
+                }
+                catch (Exception ex)
+                {
+                    ConsoleDisplay.Write("Failed: " + ex.Message + "\nTry /k id or /k name");
+                }
+            }
             else if (CommandParser.Parse(data,"processes") || CommandParser.Parse(data,"p"))
             {
                 try

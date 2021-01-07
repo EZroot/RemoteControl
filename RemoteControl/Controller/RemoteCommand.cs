@@ -29,6 +29,9 @@ namespace RemoteControl.Controller
             return mousePos;
         }
 
+        //This returns in chunks for some reason?
+        //guess its how process list works? idk
+        //need to find workaround
         public static string ListProcesses()
         {
             Process[] processlist = Process.GetProcesses();
@@ -38,6 +41,23 @@ namespace RemoteControl.Controller
                 s += ("\nProcess: " + theprocess.ProcessName + " ID: " + theprocess.Id);
             }
             return s;
+        }
+
+        public static void KillProcess(int id)
+        {
+            ConsoleDisplay.Write("Killed process: " + id);
+            //--- real command below ---
+            //Process p = Process.GetProcessById(id);
+            //p.Kill();
+        }
+
+        public static void KillProcesses(string name)
+        {
+            ConsoleDisplay.Write("Killed process: " + name);
+            //--- real command below ---
+            //Process[] p = Process.GetProcessesByName(name);
+            //foreach (Process pp in p)
+            //pp.Kill();
         }
     }
 }

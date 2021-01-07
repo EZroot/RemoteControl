@@ -45,12 +45,12 @@ namespace RemoteClient
                             Thread newThread = new Thread(BreakStream);
                             newThread.Start();
 
-                            Console.WriteLine(":> Currently streaming mouse position...");
+                            Console.WriteLine("User@" + host.HostName + ": Currently streaming mouse position...");
                             while (runningStream)
                             {
                                 Vector2 mousePos = RemoteCommand.GetMousePosition();
 
-                                byte[] m = Encoding.ASCII.GetBytes("SENT: " + mousePos.X + "," + mousePos.Y + " <EOF>");
+                                byte[] m = Encoding.ASCII.GetBytes("SENT: " + mousePos.X + "," + mousePos.Y + " <EOF>"); //need to add EOF because were no longer adding it thru input
                                 //byte[] m = Encoding.ASCII.GetBytes("mm " + mousePos.X + "," + mousePos.Y + " <EOF>");
                                 int bsent = sender.Send(m);
                                 //listen for response?
@@ -59,10 +59,16 @@ namespace RemoteClient
                         }
                         else
                         {
-                            Console.Write(":>");
-                            string input = Console.ReadLine() + " <EOF>";
+                            string input = "";
+                            while (input == "")
+                            {
+                                Console.Write("User@"+host.HostName+":");
+                                input = Console.ReadLine();
+                            }
+                            input += " <EOF>";
+
                             //exit
-                            if (input == "exit" || input == "quit")
+                            if (input.Contains("exit") || input.Contains("quit"))
                             {
                                 Console.WriteLine("\nExiting client...");
                                 Thread.Sleep(5);
