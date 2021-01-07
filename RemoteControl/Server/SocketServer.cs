@@ -51,17 +51,24 @@ namespace RemoteControl.Server
                             }
                             else if (CommandParser.Parse(data, "movemouse") || CommandParser.Parse(data, "mm"))
                             {
-                                //ConsoleDisplay.Write("Pos: " + pos[0] +"/"+ pos[1]);
-                                //Vector2 vec = new Vector2(pos[0], pos[1]);
-                                //RemoteCommand.MoveMouse((int)vec.X, (int)vec.Y);
-
                                 int[] derp = CommandParser.ParseNumbers(data.ToString());
-                                RemoteCommand.MoveMouse(derp[0], derp[1]);
-                                //ConsoleDisplay.Write("Moved mouse to X: " + vec.X + ", Y:" + vec.Y);
+                                try
+                                {
+                                    RemoteCommand.MoveMouse(derp[0], derp[1]);
+                                    ConsoleDisplay.Write("Moved mouse on client to X: " + derp[0] + " ,Y: " + derp[1]);
+                                }
+                                catch(Exception ex)
+                                {
+                                    ConsoleDisplay.Write("Failed: "+ex.Message);
+                                }
+                            }
+                            else if (CommandParser.Parse(data, "mousestream") || CommandParser.Parse(data, "ms"))
+                            {
+                                //while true, get clients mouse coords and stream it
                             }
                             else
                             {
-                                data = "Server: Command failed! Please use correct syntax. <EOF>"; 
+                                data = "Server: Command failed! Please use correct syntax. <EOF>";
                             }
 
                             //echos msg back to client

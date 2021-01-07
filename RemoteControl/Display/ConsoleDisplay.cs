@@ -16,8 +16,14 @@ namespace RemoteControl.Display
         public static void Write(int x, int y, string text)
         {
             Console.SetCursorPosition(x, y);
-            Console.Write(text);
-            Console.SetCursorPosition(x, y);
+            Console.WriteLine(text);
+        }
+
+        public static void Debug(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(text);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }

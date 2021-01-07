@@ -21,6 +21,9 @@ namespace RemoteClient
 
                 Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
+                Console.WriteLine("Press any key to connect...");
+                Console.ReadKey();
+
                 try
                 {
                     sender.Connect(remoteEP);
@@ -30,7 +33,7 @@ namespace RemoteClient
                     bool running = true;
                     while (running)
                     {
-                        Console.Write("User:>");
+                        Console.Write(":>");
                         string input = Console.ReadLine() + "<EOF>";
 
                         //exit
@@ -49,7 +52,7 @@ namespace RemoteClient
                         //listen for response?
                         int bytesRec = sender.Receive(bytes); //get status from server if we recieved a function call, if doesnt exist or something return null/custom error code
 
-                        Console.WriteLine("Recieved string: {0}", Encoding.ASCII.GetString(bytes, 0, bytesRec));
+                        Console.WriteLine(Encoding.ASCII.GetString(bytes, 0, bytesRec));
                     }
                 }
                 catch (ArgumentNullException ane)
