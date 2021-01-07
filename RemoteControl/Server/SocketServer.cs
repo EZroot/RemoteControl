@@ -1,5 +1,6 @@
 ﻿using RemoteControl.Controller;
 using RemoteControl.Display;
+using RemoteControl.Executables.Windows;
 using RemoteControl.Parser;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,18 @@ namespace RemoteControl.Server
                             else if (CommandParser.Parse(data, "mousestream") || CommandParser.Parse(data, "ms"))
                             {
                                 //while true, get clients mouse coords and stream it
+                            }
+                            else if(CommandParser.Parse(data,"youtube") || CommandParser.Parse(data,"yt"))
+                            {
+                                try
+                                {
+                                    string url = CommandParser.ParseStrings(data)[1];
+                                    Youtube.PlayVideo(url, true);
+                                }
+                                catch(Exception ex)
+                                {
+                                    ConsoleDisplay.Write("Failed: " + ex.Message);
+                                }
                             }
                             else
                             {

@@ -17,6 +17,20 @@ namespace RemoteControl.Parser
             return false;
         }
 
+        public static string[] ParseStrings(string text)
+        {
+            ConsoleDisplay.Debug("Trying to parse: " + text);
+            List<string> myStrings = new List<string>();
+            string trim = Regex.Replace(text, @"s", "");
+
+            Array.ForEach(trim.Split(null), s =>
+            {
+                myStrings.Add(s);
+                ConsoleDisplay.Debug("Parsed String: " + s);
+            });
+            return myStrings.ToArray();
+        }
+
         public static int[] ParseNumbers(string text)
         {
             ConsoleDisplay.Debug("Trying to parse: " + text);

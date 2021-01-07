@@ -34,7 +34,7 @@ namespace RemoteClient
                     while (running)
                     {
                         Console.Write(":>");
-                        string input = Console.ReadLine() + "<EOF>";
+                        string input = Console.ReadLine() + " <EOF>";
 
                         //exit
                         if (input == "exit" || input == "quit")
