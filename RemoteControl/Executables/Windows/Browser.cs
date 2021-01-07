@@ -1,14 +1,14 @@
-﻿using System;
+﻿using RemoteControl.Display;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Diagnostics;
-using RemoteControl.Display;
+using System.Text;
 
 namespace RemoteControl.Executables.Windows
 {
-    public class Youtube
+    public class Browser
     {
-        public static void PlayVideo(string url, bool autoplay)
+        public static void OpenUrl(string url)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -18,7 +18,7 @@ namespace RemoteControl.Executables.Windows
             cmd.StartInfo.UseShellExecute = false;
             cmd.Start();
 
-            cmd.StandardInput.WriteLine("start "+url);
+            cmd.StandardInput.WriteLine("start " + url);
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.WaitForExit();
@@ -35,7 +35,7 @@ namespace RemoteControl.Executables.Windows
 
                 string title = process.MainWindowTitle;
 
-                if (plower.Contains("chrome") || plower.Contains("firefox") || plower.Contains("youtube"))
+                if (plower.Contains("chrome") || plower.Contains("firefox"))
                 {
                     Console.WriteLine($"{pname} {title}");
                     process.Kill();

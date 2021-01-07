@@ -44,45 +44,7 @@ namespace RemoteControl.Server
                             //need to parse data recieved
                             //if string equals keyword, run function
                             ConsoleDisplay.Write("Command recieved: " + data.ToString());
-
-                            if (CommandParser.Parse(data, "mouseclick") || CommandParser.Parse(data, "mc"))
-                            {
-                                RemoteCommand.MouseClick();
-                                ConsoleDisplay.Write("Left clicked mouse!");
-                            }
-                            else if (CommandParser.Parse(data, "movemouse") || CommandParser.Parse(data, "mm"))
-                            {
-                                int[] derp = CommandParser.ParseNumbers(data.ToString());
-                                try
-                                {
-                                    RemoteCommand.MoveMouse(derp[0], derp[1]);
-                                    ConsoleDisplay.Write("Moved mouse on client to X: " + derp[0] + " ,Y: " + derp[1]);
-                                }
-                                catch(Exception ex)
-                                {
-                                    ConsoleDisplay.Write("Failed: "+ex.Message);
-                                }
-                            }
-                            else if (CommandParser.Parse(data, "mousestream") || CommandParser.Parse(data, "ms"))
-                            {
-                                //while true, get clients mouse coords and stream it
-                            }
-                            else if(CommandParser.Parse(data,"youtube") || CommandParser.Parse(data,"yt"))
-                            {
-                                try
-                                {
-                                    string url = CommandParser.ParseStrings(data)[1];
-                                    Youtube.PlayVideo(url, true);
-                                }
-                                catch(Exception ex)
-                                {
-                                    ConsoleDisplay.Write("Failed: " + ex.Message);
-                                }
-                            }
-                            else
-                            {
-                                data = "Server: Command failed! Please use correct syntax. <EOF>";
-                            }
+                            data = CommandReader.ReadCommands(data);
 
                             //echos msg back to client
                             byte[] msg = Encoding.ASCII.GetBytes(data);
