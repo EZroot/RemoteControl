@@ -11,6 +11,10 @@ namespace RemoteClient
 {
     public class SocketClient
     {
+        static bool running = true;
+        static bool runningStream = true;
+        static bool isStreaming = false;
+
         public static void Start()
         {
             byte[] bytes = new byte[1024];
@@ -25,22 +29,23 @@ namespace RemoteClient
 
                 Console.WriteLine("Press any key to connect...");
                 Console.ReadKey();
-
+                Console.Clear();
                 try
                 {
                     sender.Connect(remoteEP);
 
                     Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
 
-                    bool running = true;
-                    bool runningStream = true;
-                    bool isStreaming = false;
                     while (running)
                     {
                         //streaming mouse
                         if (isStreaming)
                         {
-                            Console.WriteLine(":> Currently streaming...");
+                            //press the anykey to exit mouse stream
+                            Thread newThread = new Thread(BreakStream);
+                            newThread.Start();
+
+                            Console.WriteLine(":> Currently streaming mouse position...");
                             while (runningStream)
                             {
                                 Vector2 mousePos = RemoteCommand.GetMousePosition();
@@ -68,6 +73,7 @@ namespace RemoteClient
                             if (input.Contains("ms") || input.Contains("mousestream"))
                             {
                                 isStreaming = true;
+                                runningStream = true;
                             }
 
                             byte[] msg = Encoding.ASCII.GetBytes(input); //we made our own file reader by specifying eof, we can do other stuff like specific function, or set a variable
@@ -99,6 +105,14 @@ namespace RemoteClient
 
             Console.WriteLine("Client exiting...");
             Console.ReadKey();
+        }
+
+        private static void BreakStream()
+        {
+            Console.ReadKey();
+
+            isStreaming = false;
+            runningStream = false;
         }
     }
 }

@@ -10,3 +10,4 @@ C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.dll
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.pdb
 C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.genruntimeconfig.cache
+C:\Users\EZRoot\source\repos\RemoteControl\RemoteControl\obj\Debug\netcoreapp3.1\RemoteControl.csprojAssemblyReference.cache

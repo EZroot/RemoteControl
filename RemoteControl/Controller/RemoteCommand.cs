@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace RemoteControl.Controller
 {
@@ -26,6 +27,17 @@ namespace RemoteControl.Controller
             Vector2 mousePos;
             Win32.GetCursorPos(out mousePos);
             return mousePos;
+        }
+
+        public static string ListProcesses()
+        {
+            Process[] processlist = Process.GetProcesses();
+            string s = "List of Processes Server";
+            foreach (Process theprocess in processlist)
+            {
+                s += ("\nProcess: " + theprocess.ProcessName + " ID: " + theprocess.Id);
+            }
+            return s;
         }
     }
 }

@@ -13,7 +13,12 @@ namespace RemoteControl.Controller
     {
         public static string ReadCommands(string data)
         {
-            if (CommandParser.Parse(data, "mouseclick") || CommandParser.Parse(data, "mc"))
+            if (CommandParser.Parse(data, "help") || CommandParser.Parse(data, "h"))
+            {
+                //read thru dictionary of commands and display them after we switch all this crap over
+                data = "h - help\nmc - mouse click\nmm X,Y - move mouse\nms - start mouse stream\nyt url - opens and plays youtube website\nb url - opens url in browser\np - process list";
+            }
+            else if (CommandParser.Parse(data, "mouseclick") || CommandParser.Parse(data, "mc"))
             {
                 RemoteCommand.MouseClick();
                 ConsoleDisplay.Write("Left clicked mouse!");
@@ -68,6 +73,17 @@ namespace RemoteControl.Controller
                 catch (Exception ex)
                 {
                     ConsoleDisplay.Write("Failed: " + ex.Message + "\nTry /b url");
+                }
+            }
+            else if (CommandParser.Parse(data,"processes") || CommandParser.Parse(data,"p"))
+            {
+                try
+                {
+                    data = RemoteCommand.ListProcesses();
+                }
+                catch(Exception e)
+                {
+                    ConsoleDisplay.Write("Failed: " + e.Message);
                 }
             }
             else

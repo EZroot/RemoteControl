@@ -1,6 +1,7 @@
 ﻿using RemoteClient.Hooks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using System.Text;
 using static RemoteClient.Hooks.Win32;
