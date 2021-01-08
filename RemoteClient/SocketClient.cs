@@ -9,6 +9,8 @@ using System.Threading;
 
 namespace RemoteClient
 {
+    //dotnet publish -c release -r ubuntu.16.04-x64 --self-contained
+
     public class SocketClient
     {
         static bool running = true;
@@ -19,19 +21,19 @@ namespace RemoteClient
         {
             byte[] bytes = new byte[1024];
 
+            Console.Write("Enter host: ");
+            string hostEntry = Console.ReadLine();
             try
             {
-                IPHostEntry host = Dns.GetHostEntry("localhost");
+                IPHostEntry host = Dns.GetHostEntry(hostEntry);
                 IPAddress ipAddress = host.AddressList[0];
+                //IPAddress ipAddress = IPAddress.Parse("138.197.144.107");
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, 5555);
-
                 Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-                Console.WriteLine("Press any key to connect...");
-                Console.ReadKey();
-                Console.Clear();
                 try
                 {
+                    Console.WriteLine("Trying to connect to "+remoteEP.Address);
                     sender.Connect(remoteEP);
 
                     Console.WriteLine("Socket connected to {0}", sender.RemoteEndPoint.ToString());
@@ -45,13 +47,13 @@ namespace RemoteClient
                             Thread newThread = new Thread(BreakStream);
                             newThread.Start();
 
-                            Console.WriteLine("User@" + host.HostName + ": Currently streaming mouse position...");
+                            //Console.WriteLine("User@" + host.HostName + ": Currently streaming mouse position...");
                             while (runningStream)
                             {
                                 Vector2 mousePos = RemoteCommand.GetMousePosition();
 
-                                byte[] m = Encoding.ASCII.GetBytes("SENT: " + mousePos.X + "," + mousePos.Y + " <EOF>"); //need to add EOF because were no longer adding it thru input
-                                //byte[] m = Encoding.ASCII.GetBytes("mm " + mousePos.X + "," + mousePos.Y + " <EOF>");
+                               // byte[] m = Encoding.ASCII.GetBytes("SENT: " + mousePos.X + "," + mousePos.Y + " <EOF>"); //need to add EOF because were no longer adding it thru input
+                                byte[] m = Encoding.ASCII.GetBytes("mm " + mousePos.X + "," + mousePos.Y + " <EOF>");
                                 int bsent = sender.Send(m);
                                 //listen for response?
                                 int brec = sender.Receive(bytes); //get status from server if we recieved a function call, if doesnt exist or something return null/custom error code
@@ -62,7 +64,7 @@ namespace RemoteClient
                             string input = "";
                             while (input == "")
                             {
-                                Console.Write("User@"+host.HostName+":");
+                                Console.Write("User@"+ipAddress.ToString()+":");
                                 input = Console.ReadLine();
                             }
                             input += " <EOF>";

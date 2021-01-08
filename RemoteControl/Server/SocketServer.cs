@@ -13,10 +13,12 @@ namespace RemoteControl.Server
 {
     public class SocketServer
     {
+        //dotnet publish -c release -r ubuntu.16.04-x64 --self-contained
         public static void Start()
         {
             IPHostEntry host = Dns.GetHostEntry("localhost");
             IPAddress ipAddress = host.AddressList[0];
+            //IPAddress ipAddress = IPAddress.Parse("138.197.144.107");
             IPEndPoint localEndpoint = new IPEndPoint(ipAddress, 5555);
 
             try

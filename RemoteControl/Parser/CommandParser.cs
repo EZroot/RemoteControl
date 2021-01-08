@@ -26,7 +26,7 @@ namespace RemoteControl.Parser
             Array.ForEach(trim.Split(null), s =>
             {
                 myStrings.Add(s);
-                ConsoleDisplay.Debug("Parsed String: " + s);
+                ConsoleDisplay.Debug("Parsed: " + s);
             });
             return myStrings.ToArray();
         }
@@ -42,7 +42,7 @@ namespace RemoteControl.Parser
                 string resultString = Regex.Match(s, @"\d+").Value;
                 int rs = Int32.Parse(resultString);
                 myIntegers.Add(rs);
-                ConsoleDisplay.Debug("Parsed Chunk: " + rs);
+                ConsoleDisplay.Debug("Parsed: " + rs);
             });
             return myIntegers.ToArray();
         }
